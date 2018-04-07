@@ -122,7 +122,9 @@ class Register extends Component {
       mediaType: 'photo',
       width: 150,
       height: 150,
-      cropping: true
+      cropping: true,
+      cropperCircleOverlay: true,
+      cropperToolbarTitle: I18n.t('camera_registry_title')
     })
       .then(image => {
         console.log(image);
