@@ -118,7 +118,10 @@ class Register extends Component {
   }
 
   selectPhoto(i) {
-    ImagePicker.showImagePicker({}, response => {
+    ImagePicker.showImagePicker({
+      cameraType: 'front',
+      maxWidth: 400
+    }, response => {
       if (response.error) {
         console.log(response.error);
       } else if (!response.didCancel) {
