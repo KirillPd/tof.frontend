@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // import { SEND_NICKNAME, SEND_PHOTOS } from 'react-native-dotenv';
 import { SEND_NICKNAME_URL, SEND_PHOTOS_URL } from '../../constants/api';
 import styles, { modalStyles, addImage } from './styles';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import I18n from '../../i18n';
 
 const PHOTOS_AMOUNT = 10;
@@ -118,26 +118,25 @@ class Register extends Component {
   }
 
   selectPhoto(i) {
-    ImagePicker.showImagePicker({
-      cameraType: 'front',
-      maxWidth: 400
-    }, response => {
-      if (response.error) {
-        console.log(response.error);
-      } else if (!response.didCancel) {
+    ImagePicker.openCamera({
+      mediaType: 'photo',
+      width: 150,
+      height: 150,
+      cropping: true
+    })
+      .then(image => {
+        console.log(image);
         this.setState(prevState => {
           let photos = prevState.photos.concat();
 
           photos[i] = {
             type: 'image',
-            uri: response.uri,
-            fileName: response.fileName
+            uri: image.path,
           }
 
           return { photos };
         });
-      }
-    });
+      });
   }
 
   getFormattedPhotos() {
@@ -153,7 +152,7 @@ class Register extends Component {
 
       data.append(`photo[${index}]`, {
         uri: photo.uri,
-        name: photo.photoName || `photo-name-${index}.JPG`,
+        name: `photo-name-${index}.JPG`,
         type: 'multipart/form-data'
       });
     });
