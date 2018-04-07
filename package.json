@@ -10,6 +10,7 @@
     "react": "16.3.1",
     "react-native": "0.55.1",
     "react-native-i18n": "^2.0.12",
+    "react-native-image-picker": "^0.26.7",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
